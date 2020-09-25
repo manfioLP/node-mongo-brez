@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  server:
+    container_name: breza_chupa_rola
+    build: '.'
+    volumes:
+      - ./:/server
+      - ./node_modules:/node-app/node_modules
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - '1337:1337'
+
+  db:
+    image: mongo:latest
+    container_name: mongo_breza
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./data/db:/data/db
